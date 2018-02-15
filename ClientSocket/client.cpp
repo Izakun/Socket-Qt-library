@@ -8,29 +8,23 @@ ClientSocket::ClientSocket(QObject *parent) :
 void ClientSocket::Connect()
 {
     socket = new QTcpSocket(this);
-    socket->connectToHost("127.0.0.1", 1234);
+    socket->connectToHost("127.0.0.1", 1234); // defind the ip of the server and the port of the server
 
     if(socket->waitForConnected(3000))
     {
-        qDebug() << "Connecté";
+        qDebug() << "Connected"; // show this if the connection work
 
         // send
-        socket->write("Connecte au server");
+        socket->write("Connected to the server"); // write this on the client
         socket->waitForBytesWritten(1000);
         socket->waitForReadyRead(3000);
-        qDebug() << "Réponse: " << socket->readAll();
-        qDebug() << "Nombre de caractere" << socket->bytesAvailable();
+        qDebug() << "Respons: " << socket->readAll();  // write the respons of the server (New client)
+        qDebug() << "Char number:" << socket->bytesAvailable(); // write the number of the char (11)
 
         socket->close();
     }
     else
     {
-        qDebug() << "Non connetcé";
+        qDebug() << "Connection faild"; // show this if the connection failed
     }
-
-    // sent
-
-    // got
-
-    // closed
 }
